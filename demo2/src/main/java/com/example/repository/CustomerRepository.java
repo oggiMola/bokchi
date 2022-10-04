@@ -9,15 +9,14 @@ import org.springframework.stereotype.Repository;
 import com.example.dto.Customer;
 
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Repository
 public interface CustomerRepository extends ReactiveMongoRepository<Customer, String> {
 
-    Flux<Customer> findByFirstName(
-            String firstName);
+        Flux<Customer> findByFirstName(String firstName);
 
-    Flux<Customer> findByLastName(
-            String lastName);
+        Flux<Customer> findByLastName(String lastName);
 
 }
 // public interface CustomerRepository extends MongoRepository<Customer, String>

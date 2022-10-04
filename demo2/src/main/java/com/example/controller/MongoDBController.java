@@ -51,7 +51,7 @@ public class MongoDBController {
 
     // 방식 1. JPA 사용 및 okimoki 참조
     @GetMapping("/testJpa")
-    public String mongodbTest() {
+    public Flux<List<Customer>> mongodbTest() {
         // Document 전부 삭제
         repository.deleteAll().subscribe();
 
@@ -88,15 +88,18 @@ public class MongoDBController {
 
         repository.findByLastName("Shin").subscribe(s -> {
             System.out.println(s);
+            listCustomer.add(s);
         });
 
-        // firstName 업데이트
-        repository.findByLastName("Shin").subscribe(s -> {
-            s.setFirstName("Merong");
+        // lastName 업데이트
+        repository.findByFirstName("Test").subscribe(s -> {
+            s.setLastName("Merong");
             repository.save(s).subscribe();
+            listCustomer.add(s);
+
         });
 
-        return "done";
+        return Flux.just(listCustomer);
     }
 
     // API 테스트
